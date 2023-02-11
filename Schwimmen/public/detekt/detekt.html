@@ -1,0 +1,297 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>detekt report</title>
+    <style>
+h2 {
+  background-color: #666666;
+  padding: 0.2em;
+  color: #ffffff;
+}
+h3 {
+  background-color:#f8dfdf;
+  padding:0.5em;
+}
+.rule {
+  background-color: #dddddd;
+  padding: 0.3em;
+  font-weight: bold;
+}
+.description {
+  color:#000000;
+  padding:0.3em;
+}
+.location {
+  color: #690505;
+  font-family: monospace;
+  display: block;
+}
+.message {
+  font-size: 0.8em;
+  color: #444444;
+  display: block;
+  margin-top: 1pt;
+}
+.rule-container {
+  border: 0.1em dashed #dddddd;
+  padding: 0.1em;
+  line-height: 1.5em;
+  margin-bottom: 8px;
+  margin-top: 8px;
+}
+pre {
+  border: 1px solid #e0e0e0;
+  overflow: scroll;
+}
+.lineno {
+  color: #999999;
+  background-color: #f0f0f0;
+}
+.error {
+  background: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAQAAAAECAYAAACp8Z5+AAAABmJLR0QA/wD/AP+gvaeTAAAACXBIWXMAAAsTAAALEwEAmpwYAAAAB3RJTUUH4AwCFR4T/3uLMgAAADxJREFUCNdNyLERQEAABMCjL4lQwIzcjErpguAL+C9AvgKJDbeD/PRpLdm35Hm+MU+cB+tCKaJW4L4YBy+CAiLJrFs9mgAAAABJRU5ErkJggg==) bottom repeat-x;
+}
+.exception {
+  color: #b60808;
+  display: inline-block;
+  background-color: #ecdada;
+  border-color: #b60808;
+  border-radius: 10px;
+  border: solid 2px;
+  padding-left: 16px;
+  padding-right: 16px;
+  margin-bottom: 16px;
+}
+</style>
+</head>
+<body>
+
+<h1>detekt report</h1>
+
+<h2>Metrics</h2>
+
+<div>
+  <ul>
+    <li>211 number of properties</li>
+    <li>97 number of functions</li>
+    <li>44 number of classes</li>
+    <li>4 number of packages</li>
+    <li>28 number of kt files</li>
+  </ul>
+</div>
+
+
+<h2>Complexity Report</h2>
+
+<div>
+  <ul>
+    <li>2,520 lines of code (loc)</li>
+    <li>1,662 source lines of code (sloc)</li>
+    <li>1,277 logical lines of code (lloc)</li>
+    <li>578 comment lines of code (cloc)</li>
+    <li>270 cyclomatic complexity (mcc)</li>
+    <li>93 cognitive complexity</li>
+    <li>15 number of total code smells</li>
+    <li>34% comment source ratio</li>
+    <li>211 mcc per 1,000 lloc</li>
+    <li>11 code smells per 1,000 lloc</li>
+  </ul>
+</div>
+
+
+<h2>Findings</h2>
+<div>Total: 15
+  <h3>comments: 8</h3>
+  <details id="UndocumentedPublicClass" open="open">
+    <summary class="rule-container"><span class="rule">UndocumentedPublicClass: 6 </span><span class="description">Public classes, interfaces and objects require documentation.</span></summary>
+    <ul>
+      <li><span class="location">E:/Uni/3.Semester/RvS/Programmieraufgabe/10-minh-khai-nguyen123/src/main/kotlin/entity/Card.kt:3:12</span><span class="message">Card is missing required documentation.</span>
+        <pre><code><span class="lineno">   1 </span>package entity
+<span class="lineno">   2 </span>
+<span class="lineno">   3 </span>data class <span class="error">Card</span>(val suit: CardSuit, var value: CardValue){
+<span class="lineno">   4 </span>    override fun toString()= &quot;$suit$value&quot;
+<span class="lineno">   5 </span>
+<span class="lineno">   6 </span>}
+</code></pre>
+      </li>
+      <li><span class="location">E:/Uni/3.Semester/RvS/Programmieraufgabe/10-minh-khai-nguyen123/src/main/kotlin/view/BlackScreen.kt:10:7</span><span class="message">BlackScreen is missing required documentation.</span>
+        <pre><code><span class="lineno">   7 </span>import tools.aqua.bgw.visual.ColorVisual
+<span class="lineno">   8 </span>
+<span class="lineno">   9 </span>
+<span class="lineno">  10 </span>class <span class="error">BlackScreen</span> (): MenuScene(1920, 1080), Refreshable {
+<span class="lineno">  11 </span>
+<span class="lineno">  12 </span>    private val headlineLabel = Label(
+<span class="lineno">  13 </span>        width = 300, height = 50, posX = 50, posY = 50,
+</code></pre>
+      </li>
+      <li><span class="location">E:/Uni/3.Semester/RvS/Programmieraufgabe/10-minh-khai-nguyen123/src/main/kotlin/view/HelloScene.kt:8:7</span><span class="message">HelloScene is missing required documentation.</span>
+        <pre><code><span class="lineno">   5 </span>import tools.aqua.bgw.util.Font
+<span class="lineno">   6 </span>import tools.aqua.bgw.visual.ColorVisual
+<span class="lineno">   7 </span>
+<span class="lineno">   8 </span>class <span class="error">HelloScene</span> : BoardGameScene(500, 500) {
+<span class="lineno">   9 </span>
+<span class="lineno">  10 </span>    private val helloLabel = Label(
+<span class="lineno">  11 </span>        width = 500,
+</code></pre>
+      </li>
+      <li><span class="location">E:/Uni/3.Semester/RvS/Programmieraufgabe/10-minh-khai-nguyen123/src/main/kotlin/view/ResultScene.kt:11:7</span><span class="message">ResultScene is missing required documentation.</span>
+        <pre><code><span class="lineno">   8 </span>import java.awt.Color
+<span class="lineno">   9 </span>import service.RootService
+<span class="lineno">  10 </span>
+<span class="lineno">  11 </span>class <span class="error">ResultScene</span> (private val rootService: RootService) : MenuScene(400, 1080), Refreshable {
+<span class="lineno">  12 </span>
+<span class="lineno">  13 </span>    private val headlineLabel = Label(
+<span class="lineno">  14 </span>        width = 300, height = 50, posX = 50, posY = 50,
+</code></pre>
+      </li>
+      <li><span class="location">E:/Uni/3.Semester/RvS/Programmieraufgabe/10-minh-khai-nguyen123/src/main/kotlin/view/SopraApplication.kt:7:7</span><span class="message">SopraApplication is missing required documentation.</span>
+        <pre><code><span class="lineno">   4 </span>import service.RootService
+<span class="lineno">   5 </span>
+<span class="lineno">   6 </span>
+<span class="lineno">   7 </span>class <span class="error">SopraApplication</span> : BoardGameApplication(&quot;Swim&quot;), Refreshable{
+<span class="lineno">   8 </span>
+<span class="lineno">   9 </span>    // Central service from which all others are created/accessed
+<span class="lineno">  10 </span>    // also holds the currently active game
+</code></pre>
+      </li>
+      <li><span class="location">E:/Uni/3.Semester/RvS/Programmieraufgabe/10-minh-khai-nguyen123/src/test/kotlin/entity/CardImageLoaderTest.kt:7:7</span><span class="message">CardImageLoaderTest is missing required documentation.</span>
+        <pre><code><span class="lineno">   4 </span>import javax.imageio.ImageIO
+<span class="lineno">   5 </span>import kotlin.test.*
+<span class="lineno">   6 </span>
+<span class="lineno">   7 </span>class <span class="error">CardImageLoaderTest</span> {
+<span class="lineno">   8 </span>    /**
+<span class="lineno">   9 </span>     * The [CardImageLoader] that is tested with this test class
+<span class="lineno">  10 </span>     */
+</code></pre>
+      </li>
+    </ul>
+  </details>
+  <details id="UndocumentedPublicFunction" open="open">
+    <summary class="rule-container"><span class="rule">UndocumentedPublicFunction: 2 </span><span class="description">Public functions require documentation.</span></summary>
+    <ul>
+      <li><span class="location">E:/Uni/3.Semester/RvS/Programmieraufgabe/10-minh-khai-nguyen123/src/main/kotlin/Main.kt:3:5</span><span class="message">The function main is missing documentation.</span>
+        <pre><code><span class="lineno">   1 </span>import view.SopraApplication
+<span class="lineno">   2 </span>
+<span class="lineno">   3 </span>fun <span class="error">main</span>() {
+<span class="lineno">   4 </span>    SopraApplication().show()
+<span class="lineno">   5 </span>    println(&quot;Application ended. Goodbye&quot;)
+<span class="lineno">   6 </span>}
+</code></pre>
+      </li>
+      <li><span class="location">E:/Uni/3.Semester/RvS/Programmieraufgabe/10-minh-khai-nguyen123/src/test/kotlin/entity/CardTest.kt:21:9</span><span class="message">The function testToString is missing documentation.</span>
+        <pre><code><span class="lineno">  18 </span>    private val clubsChar = '\u2663' // ♣
+<span class="lineno">  19 </span>
+<span class="lineno">  20 </span>    @Test
+<span class="lineno">  21 </span>    fun <span class="error">testToString</span>() {
+<span class="lineno">  22 </span>        assertEquals(heartsChar + &quot;A&quot;, aceOfHeart.toString())
+<span class="lineno">  23 </span>        assertEquals(clubsChar + &quot;6&quot;, sixOfClubs.toString())
+<span class="lineno">  24 </span>        assertEquals(spadesChar + &quot;Q&quot;, queenOfSpade.toString())
+</code></pre>
+      </li>
+    </ul>
+  </details>
+  <h3>complexity: 2</h3>
+  <details id="LongMethod" open="open">
+    <summary class="rule-container"><span class="rule">LongMethod: 1 </span><span class="description">One method should have one responsibility. Long methods tend to handle many things at once. Prefer smaller methods to make them easier to understand.</span></summary>
+    <ul>
+      <li><span class="location">E:/Uni/3.Semester/RvS/Programmieraufgabe/10-minh-khai-nguyen123/src/main/kotlin/view/GameScene.kt:287:18</span><span class="message">The function refreshAfterStartNewGame is too long (61). The maximum length is 60.</span>
+        <pre><code><span class="lineno"> 284 </span>     *  The views of drawStack, middleStack and Player1, Player2, Player3, Player4 are set
+<span class="lineno"> 285 </span>     *  clears any previous gameComponents
+<span class="lineno"> 286 </span>     */
+<span class="lineno"> 287 </span>    override fun <span class="error">refreshAfterStartNewGame</span>() {
+<span class="lineno"> 288 </span>        val game = rootService.currentGame
+<span class="lineno"> 289 </span>        checkNotNull(game) { &quot;No started game found.&quot; }
+<span class="lineno"> 290 </span>        clearComponents()
+</code></pre>
+      </li>
+    </ul>
+  </details>
+  <details id="TooManyFunctions" open="open">
+    <summary class="rule-container"><span class="rule">TooManyFunctions: 1 </span><span class="description">Too many functions inside a/an file/class/object/interface always indicate a violation of the single responsibility principle. Maybe the file/class/object/interface wants to manage too many things at once. Extract functionality which clearly belongs together.</span></summary>
+    <ul>
+      <li><span class="location">E:/Uni/3.Semester/RvS/Programmieraufgabe/10-minh-khai-nguyen123/src/main/kotlin/view/GameScene.kt:20:7</span><span class="message">Class 'GameScene' with '12' functions detected. Defined threshold inside classes is set to '11'</span>
+        <pre><code><span class="lineno">  17 </span>/**
+<span class="lineno">  18 </span> * class for GameScene
+<span class="lineno">  19 </span> */
+<span class="lineno">  20 </span>class <span class="error">GameScene</span> (private val rootService: RootService) : BoardGameScene(1920, 1080), Refreshable {
+<span class="lineno">  21 </span>    //Positions of Cards and Players
+<span class="lineno">  22 </span>    private val drawStack =  LabeledStackView(posX = 1300, posY = 400, &quot;drawStack&quot;)
+<span class="lineno">  23 </span>    private val cardImageLoader = CardImageLoader()
+</code></pre>
+      </li>
+    </ul>
+  </details>
+  <h3>empty-blocks: 1</h3>
+  <details id="EmptyDefaultConstructor" open="open">
+    <summary class="rule-container"><span class="rule">EmptyDefaultConstructor: 1 </span><span class="description">Empty block of code detected. As they serve no purpose they should be removed.</span></summary>
+    <ul>
+      <li><span class="location">E:/Uni/3.Semester/RvS/Programmieraufgabe/10-minh-khai-nguyen123/src/main/kotlin/view/BlackScreen.kt:10:19</span><span class="message">An empty default constructor can be removed.</span>
+        <pre><code><span class="lineno">   7 </span>import tools.aqua.bgw.visual.ColorVisual
+<span class="lineno">   8 </span>
+<span class="lineno">   9 </span>
+<span class="lineno">  10 </span>class BlackScreen <span class="error">()</span>: MenuScene(1920, 1080), Refreshable {
+<span class="lineno">  11 </span>
+<span class="lineno">  12 </span>    private val headlineLabel = Label(
+<span class="lineno">  13 </span>        width = 300, height = 50, posX = 50, posY = 50,
+</code></pre>
+      </li>
+    </ul>
+  </details>
+  <h3>style: 4</h3>
+  <details id="MaxLineLength" open="open">
+    <summary class="rule-container"><span class="rule">MaxLineLength: 3 </span><span class="description">Line detected that is longer than the defined maximum line length in the code style.</span></summary>
+    <ul>
+      <li><span class="location">E:/Uni/3.Semester/RvS/Programmieraufgabe/10-minh-khai-nguyen123/src/main/kotlin/view/GameScene.kt:376:5</span><span class="message">Line detected that is longer than the defined maximum line length in the code style.</span>
+        <pre><code><span class="lineno"> 373 </span>     * element of [stack] onto it, and adds the newly created view/card pair
+<span class="lineno"> 374 </span>     * to the global [cardMap].
+<span class="lineno"> 375 </span>     */
+<span class="lineno"> 376 </span>    <span class="error">private</span> fun initializeViewStack(stack: MutableList&lt;Card&gt;, stackView: CardStack&lt;CardView&gt;, cardImageLoader: CardImageLoader) {
+<span class="lineno"> 377 </span>        stackView.clear()
+<span class="lineno"> 378 </span>        stack.forEach { card -&gt;
+<span class="lineno"> 379 </span>            val cardView = CardView(
+</code></pre>
+      </li>
+      <li><span class="location">E:/Uni/3.Semester/RvS/Programmieraufgabe/10-minh-khai-nguyen123/src/main/kotlin/view/GameScene.kt:400:5</span><span class="message">Line detected that is longer than the defined maximum line length in the code style.</span>
+        <pre><code><span class="lineno"> 397 </span>     * @param cardImageLoader creates cardsImage
+<span class="lineno"> 398 </span>     * @param flip true if front of Cards should be displayed, else backside is shown
+<span class="lineno"> 399 </span>     */
+<span class="lineno"> 400 </span>    <span class="error">private</span> fun initializeOpenCards(cards: ArrayList&lt;Card&gt;, stackView: LinearLayout&lt;CardView&gt;, cardImageLoader: CardImageLoader, flip: Boolean) {
+<span class="lineno"> 401 </span>        stackView.clear()
+<span class="lineno"> 402 </span>
+<span class="lineno"> 403 </span>        cards.forEach { card -&gt;
+</code></pre>
+      </li>
+      <li><span class="location">E:/Uni/3.Semester/RvS/Programmieraufgabe/10-minh-khai-nguyen123/src/test/kotlin/service/ServiceTest.kt:191:9</span><span class="message">Line detected that is longer than the defined maximum line length in the code style.</span>
+        <pre><code><span class="lineno"> 188 </span>        //player2 passes
+<span class="lineno"> 189 </span>        mc.playerActionService.pass()
+<span class="lineno"> 190 </span>        assertFalse {testRefreshable.refreshAfterResultCalled}
+<span class="lineno"> 191 </span>        <span class="error">//endTurn() moves to nextPlayer , startNextTurn() checks if player hasKnocked, if that is the case game ends and result are shown</span>
+<span class="lineno"> 192 </span>        mc.playerActionService.endTurn()
+<span class="lineno"> 193 </span>        assertTrue {testRefreshable.refreshAfterResultCalled}
+<span class="lineno"> 194 </span>    }
+</code></pre>
+      </li>
+    </ul>
+  </details>
+  <details id="ReturnCount" open="open">
+    <summary class="rule-container"><span class="rule">ReturnCount: 1 </span><span class="description">Restrict the number of return statements in methods.</span></summary>
+    <ul>
+      <li><span class="location">E:/Uni/3.Semester/RvS/Programmieraufgabe/10-minh-khai-nguyen123/src/test/kotlin/entity/CardImageLoaderTest.kt:78:33</span><span class="message">Function sameAs has 4 return statements which exceeds the limit of 2.</span>
+        <pre><code><span class="lineno">  75 </span> * Tests equality of two [BufferedImage]s by first checking if they have the same dimensions
+<span class="lineno">  76 </span> * and then comparing every pixels' RGB value.
+<span class="lineno">  77 </span> */
+<span class="lineno">  78 </span>private infix fun BufferedImage.<span class="error">sameAs</span>(other: Any?): Boolean {
+<span class="lineno">  79 </span>
+<span class="lineno">  80 </span>    // if the other is not even a BufferedImage, we are done already
+<span class="lineno">  81 </span>    if (other !is BufferedImage) {
+</code></pre>
+      </li>
+    </ul>
+  </details>
+</div>
+
+
+generated with <a href="https://detekt.github.io/">detekt version 1.18.0-RC3</a> on 2021-12-06 12:18:50 UTC.
+
+</body>
+</html>

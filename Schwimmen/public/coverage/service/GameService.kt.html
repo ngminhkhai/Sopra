@@ -1,0 +1,242 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="de"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>GameService.kt</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">projekt1</a> &gt; <a href="index.source.html" class="el_package">service</a> &gt; <span class="el_source">GameService.kt</span></div><h1>GameService.kt</h1><pre class="source lang-java linenums">package service
+
+import entity.*
+import kotlin.random.Random
+
+
+/**
+ * Service layer class that provides the logic for actions not directly
+ * related to a single player.
+ */
+
+<span class="fc" id="L12">class GameService(private val rootService: RootService): AbstractRefreshableService() {</span>
+<span class="fc" id="L13">    private val seed: Random = Random</span>
+
+    /**
+     * Calculates a Players Card Points after a game is over
+     *
+     * preconditions:
+     * - a game was started (i.e. != null)
+     * @throws IllegalStateException if one of the conditions is violated
+     * @return List with the points of each player (I added the return for the test)
+     *
+     */
+    fun evaluateCardPoints() :List&lt;Double&gt; {
+
+<span class="fc" id="L26">        val game = rootService.currentGame</span>
+<span class="pc bpc" id="L27" title="1 of 2 branches missed.">        checkNotNull(game) { &quot;No game started yet.&quot;}</span>
+<span class="fc" id="L28">        val size = game.listOfPlayers.size</span>
+<span class="fc" id="L29">        val cardPoints = ArrayList&lt;Double&gt;(4)</span>
+
+<span class="pc bpc" id="L31" title="1 of 4 branches missed.">        for (i in 0 until size){</span>
+<span class="fc" id="L32">                cardPoints.add(i,calculatePoints(game.listOfPlayers[i].handCards))</span>
+        }
+<span class="fc" id="L34">        onAllRefreshables {refreshAfterResult(cardPoints)}</span>
+<span class="fc" id="L35">        return cardPoints</span>
+    }
+
+    /**
+     * Starts a new game (overwriting a currently active one, if it exists)
+     *
+     * @param playerNames List of all the player names (at least 2 but no more than 4)
+     * @throws IllegalStateException if not enough playerNames are entered
+     */
+    fun startNewGame( playerNames: List&lt;String&gt;)
+    {
+
+<span class="fc" id="L47">        val playerList = ArrayList&lt;Player&gt;()</span>
+<span class="fc bfc" id="L48" title="All 6 branches covered.">        require(playerNames.size in 2..4) {&quot;must contain at least 2 and no more than 4 Strings&quot;}</span>
+<span class="pc bpc" id="L49" title="1 of 4 branches missed.">        for (i in playerNames.indices){</span>
+<span class="fc" id="L50">            playerList.add(i,Player(playerNames[i]))</span>
+        }
+<span class="fc" id="L52">        val game = Game(playerList)</span>
+<span class="fc" id="L53">        game.drawStack.cards = initCardStack(seed) as ArrayDeque&lt;Card&gt;</span>
+
+<span class="pc bpc" id="L55" title="2 of 4 branches missed.">        check(game.drawStack.size==32) {&quot;Game starts with a 32 card-sized stack&quot;}</span>
+<span class="fc" id="L56">        game.middleCards = game.drawStack.drawCards(3)</span>
+<span class="pc bpc" id="L57" title="1 of 4 branches missed.">        for (i in playerList.indices){</span>
+<span class="fc" id="L58">               game.listOfPlayers[i].handCards = game.drawStack.drawCards(3)</span>
+            }
+<span class="fc" id="L60">        rootService.currentGame = game</span>
+<span class="fc" id="L61">        onAllRefreshables { refreshAfterStartNewGame() }</span>
+
+<span class="fc" id="L63">    }</span>
+
+    /**
+     * Checks if next Player can make his turn
+     * if the game has ended due to insufficient cards or knocking the game will calculate the winner [evaluateCardPoints]
+     * if everyone hasPassed [checkPassedLastTurn] will change the middle cards
+     */
+
+    fun startNextTurn(){
+<span class="fc" id="L72">        val game=rootService.currentGame</span>
+<span class="pc bpc" id="L73" title="1 of 2 branches missed.">        checkNotNull(game)</span>
+<span class="pc bpc" id="L74" title="1 of 2 branches missed.">        if (game.drawStack.empty){</span>
+<span class="nc" id="L75">            evaluateCardPoints()</span>
+        }
+<span class="fc" id="L77">        checkKnockedLastTurn()</span>
+<span class="fc" id="L78">        checkPassedLastTurn()</span>
+<span class="fc" id="L79">        onAllRefreshables { refreshAfterStartTurn() }</span>
+<span class="fc" id="L80">    }</span>
+
+    /**
+     * Checks  if Player has knocked, if they did game will end with [evaluateCardPoints]
+     */
+    private fun checkKnockedLastTurn(){
+<span class="fc" id="L86">        val game=rootService.currentGame</span>
+<span class="pc bpc" id="L87" title="1 of 2 branches missed.">        checkNotNull(game)</span>
+<span class="fc bfc" id="L88" title="All 2 branches covered.">        if(game.getCurrentPlayer().hasKnocked){</span>
+<span class="fc" id="L89">            evaluateCardPoints()</span>
+        }
+<span class="fc" id="L91">    }</span>
+
+    /**
+     * Checks if all Players have passed in one round
+     * resets PassedFlag + changes middleCards under the condition:
+     * - everyone passed
+     * - drawStack size &gt;= 3
+     * else nothing happen
+     * (if everyone passed but  drawStack size &lt; 3 the game ends)
+     *
+     */
+   private fun checkPassedLastTurn(){
+<span class="fc" id="L103">        val game=rootService.currentGame</span>
+<span class="pc bpc" id="L104" title="1 of 2 branches missed.">        checkNotNull(game)</span>
+<span class="fc bfc" id="L105" title="All 2 branches covered.">        if(game.getCurrentPlayer().hasPassed){</span>
+<span class="pc bpc" id="L106" title="1 of 2 branches missed.">            if (game.drawStack.size&lt;3){</span>
+<span class="nc" id="L107">               evaluateCardPoints()</span>
+            }
+            else{
+<span class="fc" id="L110">                game.middleCards= game.drawStack.drawCards(3)</span>
+<span class="fc" id="L111">                rootService.playerActionService.resetPassedFlag()</span>
+<span class="fc" id="L112">                onAllRefreshables { refreshAfterCardChange()}</span>
+            }
+        }
+
+<span class="fc" id="L116">    }</span>
+
+    /**
+     * Creates a shuffled list of 32 cards (of all four suits and cards
+     * from 7 to Ace)
+     * @param seed to shuffle the stack
+     * @return stack.cards the shuffled card stack for the game
+     */
+    private fun initCardStack(seed: Random) : List&lt;Card&gt; {
+<span class="fc" id="L125">        val stack = CardManager(seed)</span>
+<span class="fc" id="L126">        CardSuit.values().forEach{ suit -&gt;</span>
+<span class="fc" id="L127">            CardValue.shortDeck().forEach{ value-&gt;</span>
+<span class="fc" id="L128">               stack.cards.add(Card(suit,value))</span>
+<span class="fc" id="L129">            }</span>
+<span class="fc" id="L130">        }</span>
+<span class="fc" id="L131">        stack.shuffle()</span>
+<span class="fc" id="L132">        return stack.cards</span>
+    }
+
+    /**
+     * ends Game
+     */
+    fun abortGame(){
+<span class="fc" id="L139">        onAllRefreshables { refreshAbortGame() }</span>
+<span class="fc" id="L140">    }</span>
+    /**
+     * Calculates the Points of a hand
+     * @param handCards of the player whose Points shall be calculated
+     * @return points of a players handCards
+     */
+    private fun calculatePoints(handCards: List&lt;Card&gt;):Double{
+<span class="fc" id="L147">        var points = 0.0</span>
+        var tmpPoints: Double
+<span class="fc" id="L149">        val heartList = ArrayList&lt;Card&gt; ()</span>
+<span class="fc" id="L150">        val spadeList = ArrayList&lt;Card&gt; ()</span>
+<span class="fc" id="L151">        val clubList = ArrayList&lt;Card&gt; ()</span>
+<span class="fc" id="L152">        val diamondList = ArrayList&lt;Card&gt; ()</span>
+<span class="pc bpc" id="L153" title="1 of 4 branches missed.">        for (i in handCards.indices){</span>
+<span class="pc bpc" id="L154" title="1 of 4 branches missed.">            when (handCards[i].suit) {</span>
+                CardSuit.HEARTS -&gt; {
+<span class="nc" id="L156">                    heartList.add(handCards[i])</span>
+                }
+                CardSuit.SPADES -&gt; {
+<span class="fc" id="L159">                    spadeList.add(handCards[i])</span>
+                }
+                CardSuit.CLUBS -&gt; {
+<span class="fc" id="L162">                    clubList.add(handCards[i])</span>
+                }
+                else -&gt; {
+<span class="fc" id="L165">                    diamondList.add(handCards[i])</span>
+                }
+            }
+        }
+<span class="fc" id="L169">        tmpPoints = cardValue(heartList)</span>
+<span class="pc bpc" id="L170" title="1 of 2 branches missed.">        if (tmpPoints &gt; points){</span>
+<span class="nc" id="L171">            points=tmpPoints</span>
+        }
+<span class="fc" id="L173">        tmpPoints = cardValue(spadeList)</span>
+<span class="pc bpc" id="L174" title="1 of 2 branches missed.">        if (tmpPoints &gt; points){</span>
+<span class="fc" id="L175">            points=tmpPoints</span>
+        }
+<span class="fc" id="L177">        tmpPoints = cardValue(clubList)</span>
+<span class="pc bpc" id="L178" title="1 of 2 branches missed.">        if (tmpPoints &gt; points){</span>
+<span class="nc" id="L179">            points=tmpPoints</span>
+        }
+<span class="fc" id="L181">        tmpPoints = cardValue(diamondList)</span>
+<span class="fc bfc" id="L182" title="All 2 branches covered.">        if (tmpPoints &gt; points){</span>
+<span class="fc" id="L183">            points=tmpPoints</span>
+        }
+<span class="fc bfc" id="L185" title="All 2 branches covered.">        if (same3Cards(handCards)){</span>
+<span class="fc" id="L186">            points = 30.5</span>
+        }
+<span class="fc" id="L188">        return points</span>
+    }
+
+
+    /**
+     * Checks if player has 3 cards with the same value but different Suit
+     * @param [handCards]
+     * @return Boolean [check]
+     */
+    private fun same3Cards (handCards: List&lt;Card&gt;):Boolean{
+<span class="fc" id="L198">        val tmpCardValue= handCards[0].value</span>
+<span class="fc" id="L199">        var check = false</span>
+<span class="pc bpc" id="L200" title="1 of 4 branches missed.">        if (tmpCardValue==handCards[1].value&amp;&amp;tmpCardValue==handCards[2].value){</span>
+<span class="fc" id="L201">            check=true</span>
+        }
+<span class="fc" id="L203">        return check</span>
+    }
+
+    /**
+     * calculates the value of the given card list
+     * @param handCards list which where sorted by suit in [calculatePoints]
+     * @return Double
+     */
+    private fun cardValue (handCards: ArrayList&lt;Card&gt;): Double {
+<span class="fc bfc" id="L212" title="All 2 branches covered.">        if (handCards.isEmpty()) return 0.0</span>
+        else {
+<span class="fc" id="L214">            var points = 0.0</span>
+<span class="pc bpc" id="L215" title="1 of 4 branches missed.">            for (i in handCards.indices) {</span>
+<span class="pc bpc" id="L216" title="4 of 6 branches missed.">                when (handCards[i].value) {</span>
+                    CardValue.SIX -&gt; {
+<span class="nc" id="L218">                        points += 6.0</span>
+                    }
+                    CardValue.SEVEN -&gt; {
+<span class="fc" id="L221">                        points += 7.0</span>
+                    }
+                    CardValue.EIGHT -&gt; {
+<span class="nc" id="L224">                        points += 8.0</span>
+                    }
+                    CardValue.NINE -&gt; {
+<span class="nc" id="L227">                        points += 9.0</span>
+                    }
+                    CardValue.ACE -&gt; {
+<span class="nc" id="L230">                        points += 11.0</span>
+                    }
+                    else -&gt; {
+<span class="fc" id="L233">                        points += 10.0</span>
+                    }
+                }
+            }
+<span class="fc" id="L237">            return points</span>
+        }
+    }
+
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.7.202105040129</span></div></body></html>

@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="de"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>CardManager.kt</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">projekt1</a> &gt; <a href="index.source.html" class="el_package">entity</a> &gt; <span class="el_source">CardManager.kt</span></div><h1>CardManager.kt</h1><pre class="source lang-java linenums">package entity
+
+import kotlin.random.Random
+
+/**
+ *  Entity class that represents the CardManager of the Game , contains [random] variable to help with the function [shuffle]
+ *  as well as the [cards] which will be known as the drawStack of the Game
+ */
+<span class="fc" id="L9">class CardManager(</span>
+<span class="fc" id="L10">    private val random: Random = Random,</span>
+) {
+<span class="fc" id="L12">    var cards: ArrayDeque&lt;Card&gt; =  ArrayDeque(32)</span>
+
+    /**
+     * the amount of cards in this stack
+     */
+<span class="fc" id="L17">    val size: Int get() = cards.size</span>
+
+    /**
+     * Returns `true` if the stack is empty, `false` otherwise.
+     */
+<span class="fc" id="L22">    val empty: Boolean get() = cards.isEmpty()</span>
+
+    /**
+     * Shuffles the cards in this stack
+     */
+    fun shuffle() {
+<span class="fc" id="L28">        cards.shuffle(random)</span>
+<span class="fc" id="L29">    }</span>
+
+    /**
+     * Draws [amount] cards from this stack.
+     *
+     * @param amount the number of cards to draw; defaults to 1 if omitted.
+     *
+     * @throws IllegalArgumentException if not enough cards on stack to draw the desired amount.
+     */
+<span class="nc" id="L38">     fun drawCards(amount: Int=1): ArrayList&lt;Card&gt;{</span>
+<span class="fc bfc" id="L39" title="All 6 branches covered.">         require (amount in 1..cards.size) { &quot;can't draw $amount cards from $cards&quot; }</span>
+<span class="fc bfc" id="L40" title="All 2 branches covered.">         return List(amount) { cards.removeFirst() } as ArrayList&lt;Card&gt; /* = java.util.ArrayList&lt;entity.Card&gt; */</span>
+     }
+
+    /**
+     * overrides toString to cards.toString()
+     */
+<span class="nc" id="L46">    override fun toString(): String = cards.toString()</span>
+<span class="fc" id="L47">}</span>
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.7.202105040129</span></div></body></html>
