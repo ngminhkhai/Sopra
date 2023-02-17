@@ -1,4 +1,4 @@
-#Softwarepraktikum (Sopra)
+Softwarepraktikum (Sopra)
 
 Das Sopra ist eine Lehrveranstaltung der Fakultät für Informatik der Technischen Universität Dortmund. Im SoPra lernen die Studierenden, grundlegende Prinzipien, Methoden und Verfahren der Software-Technologie in der Praxis einzusetzen, indem sie als Team in Arbeitsgruppen von 7 - 9 Studierenden zwei Software-Entwicklungsprojekte mit unterschiedlichen Aufgabenstellungen durchführen.
 
