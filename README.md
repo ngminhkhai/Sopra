@@ -1,7 +1,7 @@
 Softwarepraktikum (Sopra)
 
 Sopra is a modul by the computerscience faculty from Technischen Universität Dortmund. Here the students learn how to use basic principles, methods and procedures of Software-development, by working on 2 projects in a Team of 7-9 people. Both Games are written in kotlin.
-
+There is a demo-video in each of the folders as visualizer. If you want to play the game you have to clone and run the project via the build-in gradle.
 
 1. Projekt: Cardgame "Swim"
 	How to Play:
