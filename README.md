@@ -11,5 +11,6 @@ Sopra is a modul by the computerscience faculty from Technischen Universität Do
 
 2. Projekt: Digitizing the Board Game Nova-Luna  (with AI)
  Based on the Game "Nova Luna": https://www.spiel-des-jahres.de/spiele/nova-luna/
+ You can start a new game or save and resume an old one. This game is playable with 4 people or AI-Players.
  
- Split into smaller teams of 2-4, we were all assigned a different aspect to work on the game. I was part of the GUI-Team and mostly worked on the menus and tracking down bugs which emerged while visualizing the game. 
+ 
