@@ -1,13 +1,15 @@
 Softwarepraktikum (Sopra)
 
-Das Sopra ist eine Lehrveranstaltung der Fakultät für Informatik der Technischen Universität Dortmund. Im SoPra lernen die Studierenden, grundlegende Prinzipien, Methoden und Verfahren der Software-Technologie in der Praxis einzusetzen, indem sie als Team in Arbeitsgruppen von 7 - 9 Studierenden zwei Software-Entwicklungsprojekte mit unterschiedlichen Aufgabenstellungen durchführen.
+Sopra is a modul by the computerscience faculty from Technischen Universität Dortmund. Here the students learn how to use basic principles, methods and procedures of Software-development, by working on 2 projects in a Team of 7-9 people. Both Games are written in kotlin.
 
-1. Projekt: Kartenspiel Schwimmen digitalisieren.
-  Aufgaben: 
-    Im Team: Grundsätzliche Plannung des Spiels (Gestaltung, Struktur, Algorithmen, etc.)
-    Allein: Selbständige Umsetzung der Plannung als Software in Kotlin. Gegenseitige Korrektur der anderen Gruppenabgaben (Code, Test, Dokumentation)
 
-2. Projekt: Brettspiel Nova-Luna digtalisieren (mit KI)
-  Aufgabe: Teil des GUI-Teams
-    - Plannung, Gestaltung, und grafische Umsetzung der Spiel-Logik. 
-    - Konstanter Ausstausch mit anderen Gruppen(Logik-Team, KI-Team) bei Fehler und Rücksprache
+1. Projekt: Cardgame "Swim"
+	How to Play:
+	Goal is to collect the highest Points by collecting high Cards in one colour or the same triplets. To-Do that you can switch one or all of your cards with the open card deck. You can pass if you don't want to switch cards or knock if you're happy with them and want to end the Game.
+	
+	In Teams we plan and design the game together. Each of us had to implement the game on our own based on the planning, while reviewing each others projects (code, test, documentation, etc.).
+
+2. Projekt: Digitizing the Board Game Nova-Luna  (with AI)
+ Based on the Game "Nova Luna": https://www.spiel-des-jahres.de/spiele/nova-luna/
+ 
+ Split into smaller teams of 2-4, we were all assigned a different aspect to work on the game. I was part of the GUI-Team and mostly worked on the menus and tracking down bugs which emerged while visualizing the game. 
