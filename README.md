@@ -5,9 +5,9 @@ Sopra is a modul by the computerscience faculty from Technischen Universität Do
 
 1. Projekt: Cardgame "Swim"
 	How to Play:
-	Goal is to collect the highest Points by collecting high Cards in one colour or the same triplets. To-Do that you can switch one or all of your cards with the open card deck. You can pass if you don't want to switch cards or knock if you're happy with them and want to end the Game.
+	The goal is to collect the highest Points by collecting high Cards in one colour or the same triplets. To-Do that you can switch one or all of your cards with the open card deck. You can pass if you don't want to switch cards or knock if you're happy with them and want to end the game.
 	
-	In Teams we plan and design the game together. Each of us had to implement the game on our own based on the planning, while reviewing each others projects (code, test, documentation, etc.).
+	In Teams we planned and designed the game together. Each of us had to implement the game on our own based on the planning, while reviewing each others projects (code, test, documentation, etc.).
 
 2. Projekt: Digitizing the Board Game Nova-Luna  (with AI)
  Based on the Game "Nova Luna": https://www.spiel-des-jahres.de/spiele/nova-luna/ .
